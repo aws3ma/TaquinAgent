@@ -20,3 +20,4 @@ Two methods :
 }<br/> data refers to the matrix of our puzzle and n refers to number of elements per record in the matrix
 - Get : Return the result of the Agent in json format. Every element is the next move of the empty case and the current status of the puzzle
 
+To start django server execute this commande in the root (same level of manager.py) : python manager.py runserver
