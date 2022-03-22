@@ -4,10 +4,11 @@ import math
 # from .Nodes import Node
 import time
 
-DIRECTIONS = {"U": [-1, 0], "D": [1, 0], "L": [0, -1], "R": [0, 1]}
+DIRECTIONS = {"D": [-1, 0], "U": [1, 0], "R": [0, -1], "L": [0, 1]}
 n = 0
 
-END = [[0,1, 2], [3,4, 5], [6,7, 8]]
+# END = [[0,1, 2], [3,4, 5], [6,7, 8]]
+END = [[1,2,3], [4, 5,6], [7, 8,0]]
 
 #it is the node which store each state of puzzle
 class Node:
@@ -87,6 +88,7 @@ def buildPath(closedSet):
 def makegoal(br):
     br=deepcopy(br)
     goal = []
+
     for k in range(len(br)):
         l=[]
         for i in range(len(br)):
@@ -104,7 +106,7 @@ def makegoal(br):
                     maxx=max(br[n])
             br[cindex_min][lindex_min]=maxx
             l.append(minn)
-            
+        goal[n-1][n-1]=0
         goal.append(l)
     return goal
 
