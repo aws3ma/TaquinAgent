@@ -5,7 +5,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 # from .Aiscript import Taquin
 from . import Aiscript
-
+from .Environment import Environment
+from .Taquin import Taquin
 
 
 
@@ -21,15 +22,17 @@ def resolve(request):
         br = []
         data = json.loads(request.body)
         n = data["n"]
-        for i in range(n):
-            l = []
-            for j in range(n):
-                l.append(int(data["data"]["a"+str(i)+str(j)]))
-            br.append(l)
-        
+        br = data["data"]
+        # for i in range(n*n):
+        #     br.append(int(data["data"]["a"+str(i)]))
         # Aiscript.END=Aiscript.makegoal(br)
-        if(n==4):
-            Aiscript.END=[[1,2,3,4], [ 5,6,7,8], [9,10,11,12],[13,14,15,0]]
-        b = Aiscript.main(br,n)
-        response = json.dumps([{'table': b}])
+        # if(n==4):
+        #     Aiscript.END=[[1,2,3,4], [ 5,6,7,8], [9,10,11,12],[13,14,15,0]]
+        # b = Aiscript.main(br,n)
+        a = Environment(n,br)
+        res = a.expand(a.idaStar)
+       
+        res = str(res)
+       
+        response = json.dumps([{'table': res}])
     return HttpResponse(response,status=200)
