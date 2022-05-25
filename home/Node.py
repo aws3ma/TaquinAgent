@@ -1,4 +1,3 @@
-#it is the node which store each state of puzzle
 class Node:
     def __init__(self, current_node, previous_node, g, h, dir):
         self.current_node = current_node
@@ -9,3 +8,11 @@ class Node:
 
     def f(self):
         return self.g + self.h
+    def __eq__(self, other):
+        return (self.f() == other.f())
+
+    def __lt__(self, other):
+        return (self.f() < other.f())
+
+    def __gt__(self, other):
+        return (self.f() > other.f())

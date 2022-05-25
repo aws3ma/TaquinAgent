@@ -1,13 +1,8 @@
-from ast import Try
-from django.shortcuts import render
 from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
-# from .Aiscript import Taquin
-from . import Aiscript
 
-
-
+from home.Taquin import Taquin
 
 def index(request):
 
@@ -20,16 +15,11 @@ def resolve(request):
     if(request.method == "POST"):
         br = []
         data = json.loads(request.body)
-        n = data["n"]
-        for i in range(n):
-            l = []
-            for j in range(n):
-                l.append(int(data["data"]["a"+str(i)+str(j)]))
-            br.append(l)
-        
-        # Aiscript.END=Aiscript.makegoal(br)
-        if(n==4):
-            Aiscript.END=[[1,2,3,4], [ 5,6,7,8], [9,10,11,12],[13,14,15,0]]
-        b = Aiscript.main(br,n)
-        response = json.dumps([{'table': b}])
+        br = data["data"]
+        goal = [[1,2,3],[4,5,6],[7,8,0]]
+        p = Taquin(br,3,goal)
+
+        res=p.a_star_search()
+       
+        response = json.dumps([{'table': res}])
     return HttpResponse(response,status=200)
