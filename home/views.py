@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
-from .Environment import Environment
+
+from home.Taquin import Taquin
+
 def index(request):
 
     response = json.dumps([{}])
@@ -13,12 +15,11 @@ def resolve(request):
     if(request.method == "POST"):
         br = []
         data = json.loads(request.body)
-        n = data["n"]
         br = data["data"]
-        a = Environment(n,br)
-        res = a.expand(a.idaStar)
-       
-        res = str(res)
+        goal = [[1,2,3],[4,5,6],[7,8,0]]
+        p = Taquin(br,3,goal)
+
+        res=p.a_star_search()
        
         response = json.dumps([{'table': res}])
     return HttpResponse(response,status=200)
