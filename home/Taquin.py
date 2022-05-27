@@ -40,25 +40,25 @@ class Taquin:
 		if m[0]>0:
 			l.append(m[0]-1)
 			l.append(m[1])
-			l.append('D')
+			l.append('U')
 			pos.append(l)
 			l=[]
 		if m[0]<n:
 			l.append(m[0]+1)
 			l.append(m[1])
-			l.append('U')
+			l.append('D')
 			pos.append(l)
 			l=[]
 		if m[1]>0:
 			l.append(m[0])
 			l.append(m[1]-1)
-			l.append('R')
+			l.append('L')
 			pos.append(l)
 			l=[]
 		if m[1]<n:
 			l.append(m[0])
 			l.append(m[1]+1)
-			l.append('L')
+			l.append('R')
 			pos.append(l)
 			l=[]
 
@@ -86,12 +86,12 @@ class Taquin:
 			i+=1
 		return (-1,-1)
     # every node have the direction, we will collect them to define the fastest path as a list of characters
-	def buildPath(self,closedSet):
-		node = closedSet[str(self.goal)]
+	def build_path(self,closed_set):
+		node = closed_set[str(self.goal)]
 		branch = list()
 		while node.dir:
 			branch.append(node.dir)
-			node = closedSet[str(node.previous_node.current_node)]
+			node = closed_set[str(node.previous_node.current_node)]
 		branch.reverse()
 		return branch
 
@@ -106,7 +106,7 @@ class Taquin:
 			test_node = frontier.get()
 			closed_set[str(test_node.current_node)] = test_node
 			if test_node.current_node == self.goal:
-				return self.buildPath(closed_set)
+				return self.build_path(closed_set)
 
 			neighbors = self.get_neighbors(test_node)
 			for node in neighbors:
